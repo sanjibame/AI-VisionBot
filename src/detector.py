@@ -910,7 +910,16 @@ class FaceDetector:
     # ==========================================
     # Test Detector
     # ==========================================
-
     def test(
         self,
         image
+    ):
+
+        image, decision, faces = self.process_frame(image)
+
+        self.print_summary(
+            faces,
+            decision
+        )
+
+        return image
