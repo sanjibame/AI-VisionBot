@@ -175,3 +175,126 @@ class ImageProcessor:
         )
 
         return output
+
+    # ===========================================
+    # Adaptive Threshold
+    # ===========================================
+
+    def adaptive_threshold(self, image):
+
+        return cv2.adaptiveThreshold(
+            image,
+            255,
+            cv2.ADAPTIVE_THRESH_GAUSSIAN_C,
+            cv2.THRESH_BINARY,
+            11,
+            2
+        )
+
+    # ===========================================
+    # Otsu Threshold
+    # ===========================================
+
+    def otsu_threshold(self, image):
+
+        _, output = cv2.threshold(
+            image,
+            0,
+            255,
+            cv2.THRESH_BINARY + cv2.THRESH_OTSU
+        )
+
+        return output
+
+    # ===========================================
+    # Histogram Equalization
+    # ===========================================
+
+    def equalize(self, image):
+
+        return cv2.equalizeHist(image)
+
+    # ===========================================
+    # CLAHE
+    # ===========================================
+
+    def clahe(self, image):
+
+        clahe = cv2.createCLAHE(
+            clipLimit=2.0,
+            tileGridSize=(8,8)
+        )
+
+        return clahe.apply(image)
+
+    # ===========================================
+    # Brightness
+    # ===========================================
+
+    def brightness(self, image, value=30):
+
+        return cv2.convertScaleAbs(
+            image,
+            alpha=1,
+            beta=value
+        )
+
+    # ===========================================
+    # Contrast
+    # ===========================================
+
+    def contrast(self, image, alpha=1.5):
+
+        return cv2.convertScaleAbs(
+            image,
+            alpha=alpha,
+            beta=0
+        )
+
+    # ===========================================
+    # Gamma Correction
+    # ===========================================
+
+    def gamma(self, image, gamma=1.2):
+
+        inverse = 1.0 / gamma
+
+        table = np.array([
+            ((i / 255.0) ** inverse) * 255
+            for i in np.arange(256)
+        ]).astype("uint8")
+
+        return cv2.LUT(image, table)
+
+    # ===========================================
+    # Sharpen Image
+    # ===========================================
+
+    def sharpen(self, image):
+
+        kernel = np.array([
+            [0,-1,0],
+            [-1,5,-1],
+            [0,-1,0]
+        ])
+
+        return cv2.filter2D(
+            image,
+            -1,
+            kernel
+        )
+
+    # ===========================================
+    # Noise Reduction
+    # ===========================================
+
+    def denoise(self, image):
+
+        return cv2.fastNlMeansDenoisingColored(
+            image,
+            None,
+            10,
+            10,
+            7,
+            21
+        )
