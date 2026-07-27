@@ -883,4 +883,110 @@ class ImageProcessor:
             "CENTER",
             (x+10, y),
             cv2.FONT_HERSHEY_SIMPLEX,
+            0.5,
+            (255,255,255),
+            1
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Robot Direction
+    # ===========================================
+
+    def draw_direction(
+        self,
+        image,
+        direction
+    ):
+
+        cv2.putText(
+            image,
+            "Direction : " + direction,
+            (20,30),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.8,
+            (0,255,0),
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Draw FPS
+    # ===========================================
+
+    def draw_fps(
+        self,
+        image,
+        fps
+    ):
+
+        cv2.putText(
+            image,
+            f"FPS : {fps:.2f}",
+            (20,60),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (255,255,0),
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Battery
+    # ===========================================
+
+    def draw_battery(
+        self,
+        image,
+        level
+    ):
+
+        cv2.putText(
+            image,
+            f"Battery : {level} %",
+            (20,90),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (0,255,255),
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Status
+    # ===========================================
+
+    def draw_status(
+        self,
+        image,
+        status
+    ):
+
+        cv2.putText(
+            image,
+            status,
+            (20,120),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            0.7,
+            (0,255,0),
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Display Processing Result
+    # ===========================================
+
+    def show(self, title, image):
+
+        from google.colab.patches import cv2_imshow
+
+        print(title)
+
+        cv2_imshow(image)
            
