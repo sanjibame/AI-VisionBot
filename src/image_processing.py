@@ -298,3 +298,589 @@ class ImageProcessor:
             7,
             21
         )
+
+    # ===========================================
+    # Resize Image
+    # ===========================================
+
+    def resize(self, image, width, height):
+
+        """
+        Resize image to given width and height.
+        """
+
+        return cv2.resize(
+            image,
+            (width, height)
+        )
+
+    # ===========================================
+    # Crop Image
+    # ===========================================
+
+    def crop(self, image, x, y, width, height):
+
+        """
+        Crop image using x, y, width and height.
+        """
+
+        return image[
+            y:y + height,
+            x:x + width
+        ]
+
+    # ===========================================
+    # Rotate 90° Clockwise
+    # ===========================================
+
+    def rotate_clockwise(self, image):
+
+        """
+        Rotate image clockwise.
+        """
+
+        return cv2.rotate(
+            image,
+            cv2.ROTATE_90_CLOCKWISE
+        )
+
+    # ===========================================
+    # Rotate 90° Counter Clockwise
+    # ===========================================
+
+    def rotate_counter_clockwise(self, image):
+
+        """
+        Rotate image counter clockwise.
+        """
+
+        return cv2.rotate(
+            image,
+            cv2.ROTATE_90_COUNTERCLOCKWISE
+        )
+
+    # ===========================================
+    # Rotate 180°
+    # ===========================================
+
+    def rotate_180(self, image):
+
+        """
+        Rotate image by 180 degrees.
+        """
+
+        return cv2.rotate(
+            image,
+            cv2.ROTATE_180
+        )
+
+    # ===========================================
+    # Horizontal Flip
+    # ===========================================
+
+    def flip_horizontal(self, image):
+
+        """
+        Flip image horizontally.
+        """
+
+        return cv2.flip(
+            image,
+            1
+        )
+
+    # ===========================================
+    # Vertical Flip
+    # ===========================================
+
+    def flip_vertical(self, image):
+
+        """
+        Flip image vertically.
+        """
+
+        return cv2.flip(
+            image,
+            0
+        )
+
+    # ===========================================
+    # Translate Image
+    # ===========================================
+
+    def translate(self, image, x_shift, y_shift):
+
+        """
+        Move image in x and y direction.
+        """
+
+        rows, cols = image.shape[:2]
+
+        matrix = np.float32([
+            [1, 0, x_shift],
+            [0, 1, y_shift]
+        ])
+
+        return cv2.warpAffine(
+            image,
+            matrix,
+            (cols, rows)
+        )
+
+    # ===========================================
+    # Scale Image
+    # ===========================================
+
+    def scale(self, image, fx=1.0, fy=1.0):
+
+        """
+        Scale image.
+        """
+
+        return cv2.resize(
+            image,
+            None,
+            fx=fx,
+            fy=fy,
+            interpolation=cv2.INTER_LINEAR
+        )
+
+    # ===========================================
+    # Add Border
+    # ===========================================
+
+    def add_border(
+        self,
+        image,
+        border=10,
+        color=(0, 0, 0)
+    ):
+
+        """
+        Add constant border around image.
+        """
+
+        return cv2.copyMakeBorder(
+            image,
+            border,
+            border,
+            border,
+            border,
+            cv2.BORDER_CONSTANT,
+            value=color
+        )
+
+    # ===========================================
+    # Copy Image
+    # ===========================================
+
+    def copy(self, image):
+
+        """
+        Return a copy of image.
+        """
+
+        return image.copy()
+
+    # ===========================================
+    # Get Image Size
+    # ===========================================
+
+    def image_size(self, image):
+
+        """
+        Return width and height.
+        """
+
+        height, width = image.shape[:2]
+
+        return width, height
+
+    # ===========================================
+    # Check Grayscale
+    # ===========================================
+
+    def is_grayscale(self, image):
+
+        """
+        Check whether image is grayscale.
+        """
+
+        return len(image.shape) == 2
+
+    # ===========================================
+    # Create Kernel
+    # ===========================================
+
+    def kernel(self, size=3):
+
+        """
+        Create a square kernel.
+        """
+
+        return np.ones(
+            (size, size),
+            np.uint8
+        )
+
+    # ===========================================
+    # Erosion
+    # ===========================================
+
+    def erode(
+        self,
+        image,
+        size=3,
+        iterations=1
+    ):
+
+        """
+        Perform erosion.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.erode(
+            image,
+            k,
+            iterations=iterations
+        )
+
+    # ===========================================
+    # Dilation
+    # ===========================================
+
+    def dilate(
+        self,
+        image,
+        size=3,
+        iterations=1
+    ):
+
+        """
+        Perform dilation.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.dilate(
+            image,
+            k,
+            iterations=iterations
+        )
+
+    # ===========================================
+    # Opening
+    # ===========================================
+
+    def opening(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Opening removes small noise.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.morphologyEx(
+            image,
+            cv2.MORPH_OPEN,
+            k
+        )
+
+    # ===========================================
+    # Closing
+    # ===========================================
+
+    def closing(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Closing fills small holes.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.morphologyEx(
+            image,
+            cv2.MORPH_CLOSE,
+            k
+        )
+
+    # ===========================================
+    # Morphological Gradient
+    # ===========================================
+
+    def gradient(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Morphological gradient.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.morphologyEx(
+            image,
+            cv2.MORPH_GRADIENT,
+            k
+        )
+
+    # ===========================================
+    # Top Hat
+    # ===========================================
+
+    def top_hat(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Top Hat transformation.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.morphologyEx(
+            image,
+            cv2.MORPH_TOPHAT,
+            k
+        )
+
+    # ===========================================
+    # Black Hat
+    # ===========================================
+
+    def black_hat(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Black Hat transformation.
+        """
+
+        k = self.kernel(size)
+
+        return cv2.morphologyEx(
+            image,
+            cv2.MORPH_BLACKHAT,
+            k
+        )
+
+    # ===========================================
+    # Morphological Edge Detection
+    # ===========================================
+
+    def morph_edges(
+        self,
+        image,
+        size=3
+    ):
+
+        """
+        Detect edges using morphology.
+        """
+
+        k = self.kernel(size)
+
+        dilated = cv2.dilate(image, k)
+
+        eroded = cv2.erode(image, k)
+
+        return cv2.subtract(
+            dilated,
+            eroded
+        )
+
+    # ===========================================
+    # Skeleton Approx
+
+    # ===========================================
+    # Draw Rectangle
+    # ===========================================
+
+    def draw_rectangle(
+        self,
+        image,
+        x,
+        y,
+        width,
+        height,
+        color=(0,255,0),
+        thickness=2
+    ):
+
+        cv2.rectangle(
+            image,
+            (x, y),
+            (x + width, y + height),
+            color,
+            thickness
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Circle
+    # ===========================================
+
+    def draw_circle(
+        self,
+        image,
+        x,
+        y,
+        radius=5,
+        color=(0,0,255),
+        thickness=-1
+    ):
+
+        cv2.circle(
+            image,
+            (x, y),
+            radius,
+            color,
+            thickness
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Line
+    # ===========================================
+
+    def draw_line(
+        self,
+        image,
+        start,
+        end,
+        color=(255,0,0),
+        thickness=2
+    ):
+
+        cv2.line(
+            image,
+            start,
+            end,
+            color,
+            thickness
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Arrow
+    # ===========================================
+
+    def draw_arrow(
+        self,
+        image,
+        start,
+        end,
+        color=(0,255,255),
+        thickness=2
+    ):
+
+        cv2.arrowedLine(
+            image,
+            start,
+            end,
+            color,
+            thickness
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Crosshair
+    # ===========================================
+
+    def draw_crosshair(
+        self,
+        image,
+        x,
+        y,
+        size=15,
+        color=(255,255,0)
+    ):
+
+        cv2.line(
+            image,
+            (x-size, y),
+            (x+size, y),
+            color,
+            2
+        )
+
+        cv2.line(
+            image,
+            (x, y-size),
+            (x, y+size),
+            color,
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Text
+    # ===========================================
+
+    def draw_text(
+        self,
+        image,
+        text,
+        x,
+        y,
+        color=(255,255,255),
+        scale=0.7
+    ):
+
+        cv2.putText(
+            image,
+            text,
+            (x, y),
+            cv2.FONT_HERSHEY_SIMPLEX,
+            scale,
+            color,
+            2
+        )
+
+        return image
+
+    # ===========================================
+    # Draw Face Center
+    # ===========================================
+
+    def draw_face_center(
+        self,
+        image,
+        x,
+        y
+    ):
+
+        cv2.circle(
+            image,
+            (x, y),
+            6,
+            (0,0,255),
+            -1
+        )
+
+        cv2.putText(
+            image,
+            "CENTER",
+            (x+10, y),
+            cv2.FONT_HERSHEY_SIMPLEX,
+           
