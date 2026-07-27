@@ -1,4 +1,65 @@
+# ==========================================
+# AI VisionBot
+# .gitignore
+# ==========================================
+
+# Python cache
 __pycache__/
-*.pyc
+*.py[cod]
+*$py.class
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+
+# IDE Settings
+.vscode/
+.idea/
+
+# Operating System Files
+.DS_Store
+Thumbs.db
+
+# Output Folder
+output/
+
+# Screenshots (optional)
+screenshots/
+
+# Logs
+*.log
+
+# Temporary Files
+*.tmp
+*.temp
+
+# Compiled Python Files
+*.pyd
 *.pyo
-*.ipynb_checkpoints
+
+# Build Files
+build/
+dist/
+*.egg-info/
+
+# Coverage Reports
+.coverage
+htmlcov/
+
+# Pytest Cache
+.pytest_cache/
+
+# Google Colab Temporary Files
+sample_data/
+
+# Local Environment Variables
+.env
+
+# Large Media Files (optional)
+*.mp4
+*.avi
+*.mov
